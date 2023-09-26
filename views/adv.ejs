@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pet List</title>
+</head>
+<body>
+  <h1>Pet List</h1>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    <% pets.forEach(function(pet) { %>
+      <tr>
+        <td><%= pet.title %></td>
+        <td><%= pet.price %></td>
+        <td>
+          <button class="delete-button" data-pet-id="<%= pet.id %>">Delete</button>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+
+  <script>
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const petId = this.getAttribute('data-pet-id');
+        deletePet(petId);
+      });
+    });
+
+    function deletePet(petId) {
+      fetch(`/deletePet/${petId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          console.error('Ошибка удаления питомца');
+        }
+      })
+      .catch(error => {
+        console.error('Произошла ошибка:', error);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pets Page</title>
+</head>
+<body>
+  <h1>Pets board:</h1>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+    </tr>
+    <% pets.forEach(function(pet) { %>
+      <tr>
+        <td><%= pet.title %></td>
+        <td><%= pet.price %></td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>
